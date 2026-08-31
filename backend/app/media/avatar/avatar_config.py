@@ -1,0 +1,1 @@
+# avatar_config.py
