@@ -1,4 +1,7 @@
-# document.py
+"""
+Document database model for the AI Teacher backend.
+"""
+
 from datetime import datetime, timezone
 
 from sqlalchemy import Column, DateTime, Integer, String, Text
@@ -8,71 +11,25 @@ from app.database.database import Base
 
 class Document(Base):
     """
-    Stores information about educational documents uploaded
-    by students for learning through the RAG pipeline.
+    Represents a learning document uploaded by a student.
     """
 
     __tablename__ = "documents"
 
-    id = Column(
-        Integer,
-        primary_key=True,
-        index=True,
-    )
+    id = Column(Integer, primary_key=True, index=True)
 
-    document_id = Column(
-        String(100),
-        unique=True,
-        index=True,
-        nullable=False,
-    )
+    filename = Column(String(255), nullable=False)
 
-    original_filename = Column(
-        String(255),
-        nullable=False,
-    )
+    file_path = Column(String(500), nullable=False)
 
-    stored_filename = Column(
-        String(255),
-        nullable=False,
-    )
+    file_type = Column(String(50), nullable=True)
 
-    file_type = Column(
-        String(20),
-        nullable=False,
-    )
-
-    file_size = Column(
-        Integer,
-        nullable=False,
-        default=0,
-    )
-
-    file_path = Column(
-        String(1000),
-        nullable=False,
-    )
+    content = Column(Text, nullable=True)
 
     status = Column(
         String(50),
         nullable=False,
         default="uploaded",
-    )
-
-    extracted_text = Column(
-        Text,
-        nullable=True,
-    )
-
-    chunk_count = Column(
-        Integer,
-        nullable=False,
-        default=0,
-    )
-
-    error_message = Column(
-        Text,
-        nullable=True,
     )
 
     created_at = Column(
@@ -87,3 +44,12 @@ class Document(Base):
         onupdate=lambda: datetime.now(timezone.utc),
         nullable=False,
     )
+
+    def __repr__(self) -> str:
+        return (
+            f"<Document("
+            f"id={self.id}, "
+            f"filename='{self.filename}', "
+            f"status='{self.status}'"
+            f")>"
+        )

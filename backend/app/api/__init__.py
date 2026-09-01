@@ -1,6 +1,6 @@
 """
-API package for AI Teacher.
+API package for the AI Teacher backend.
 
-This package contains the FastAPI routers and
-HTTP API endpoints used by the application.
+This package contains the FastAPI application routes,
+routers, and API-level request handling.
 """

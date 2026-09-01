@@ -1,3 +1,7 @@
+"""
+Lesson database model for the AI Teacher backend.
+"""
+
 from datetime import datetime, timezone
 
 from sqlalchemy import Column, DateTime, Integer, String, Text
@@ -7,89 +11,43 @@ from app.database.database import Base
 
 class Lesson(Base):
     """
-    Stores a personalized lesson generated for a student.
+    Represents an AI-generated lesson.
     """
 
     __tablename__ = "lessons"
 
-    id = Column(
-        Integer,
-        primary_key=True,
-        index=True,
-    )
+    id = Column(Integer, primary_key=True, index=True)
 
-    lesson_id = Column(
-        String(100),
-        unique=True,
-        index=True,
-        nullable=False,
-    )
+    title = Column(String(255), nullable=False)
 
-    student_id = Column(
-        Integer,
-        nullable=True,
-        index=True,
-    )
+    topic = Column(String(255), nullable=False)
 
-    document_id = Column(
-        String(100),
-        nullable=True,
-        index=True,
-    )
+    description = Column(Text, nullable=True)
 
-    topic = Column(
-        String(500),
-        nullable=False,
-    )
+    content = Column(Text, nullable=True)
 
-    learner_level = Column(
+    difficulty = Column(
         String(50),
-        nullable=False,
+        nullable=True,
         default="beginner",
     )
 
     language = Column(
         String(50),
-        nullable=False,
-        default="english",
-    )
-
-    learning_goal = Column(
-        Text,
         nullable=True,
+        default="English",
     )
 
-    available_time = Column(
+    duration_minutes = Column(
         Integer,
-        nullable=False,
-        default=20,
-    )
-
-    teaching_style = Column(
-        String(100),
         nullable=True,
-    )
-
-    lesson_plan = Column(
-        Text,
-        nullable=True,
-    )
-
-    current_step = Column(
-        Integer,
-        nullable=False,
-        default=0,
+        default=30,
     )
 
     status = Column(
         String(50),
         nullable=False,
-        default="created",
-    )
-
-    score = Column(
-        Integer,
-        nullable=True,
+        default="draft",
     )
 
     created_at = Column(
@@ -104,3 +62,12 @@ class Lesson(Base):
         onupdate=lambda: datetime.now(timezone.utc),
         nullable=False,
     )
+
+    def __repr__(self) -> str:
+        return (
+            f"<Lesson("
+            f"id={self.id}, "
+            f"title='{self.title}', "
+            f"topic='{self.topic}'"
+            f")>"
+        )

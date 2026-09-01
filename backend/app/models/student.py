@@ -1,51 +1,38 @@
+"""
+Student database model for the AI Teacher backend.
+"""
+
 from datetime import datetime, timezone
 
 from sqlalchemy import Column, DateTime, Integer, String, Text
-from sqlalchemy.orm import relationship
 
 from app.database.database import Base
 
 
 class Student(Base):
     """
-    Stores the student's profile and learning preferences.
+    Represents a student using the AI Teacher platform.
     """
 
     __tablename__ = "students"
 
-    id = Column(
-        Integer,
-        primary_key=True,
-        index=True,
-    )
+    id = Column(Integer, primary_key=True, index=True)
 
-    name = Column(
-        String(100),
-        nullable=False,
-    )
+    name = Column(String(150), nullable=False)
 
     email = Column(
         String(255),
+        nullable=False,
         unique=True,
         index=True,
-        nullable=True,
     )
 
-    learner_level = Column(
+    grade = Column(String(50), nullable=True)
+
+    language = Column(
         String(50),
-        nullable=False,
-        default="beginner",
-    )
-
-    preferred_language = Column(
-        String(50),
-        nullable=False,
-        default="english",
-    )
-
-    learning_goal = Column(
-        Text,
         nullable=True,
+        default="English",
     )
 
     learning_style = Column(
@@ -53,14 +40,12 @@ class Student(Base):
         nullable=True,
     )
 
-    strong_topics = Column(
-        Text,
-        nullable=True,
-    )
+    interests = Column(Text, nullable=True)
 
-    weak_topics = Column(
-        Text,
+    preferred_difficulty = Column(
+        String(50),
         nullable=True,
+        default="beginner",
     )
 
     created_at = Column(
@@ -76,5 +61,11 @@ class Student(Base):
         nullable=False,
     )
 
-    # Relationships will be connected with the remaining
-    # models after those files are created.
+    def __repr__(self) -> str:
+        return (
+            f"<Student("
+            f"id={self.id}, "
+            f"name='{self.name}', "
+            f"email='{self.email}'"
+            f")>"
+        )
