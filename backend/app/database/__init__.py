@@ -1,7 +1,15 @@
-# __init__.py
 """
-Database package for AI Teacher.
+Database module for the AI Teacher.
 
-Contains database configuration, SQLAlchemy setup,
-and CRUD operations.
+This package contains:
+
+- Database connection management
+- Database session handling
+- CRUD operations
+- Persistence helpers for students, lessons,
+  documents, and progress
+
+The database layer is kept separate from business logic
+so services and API routes can interact with data safely
+and consistently.
 """
